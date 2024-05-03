@@ -1,0 +1,145 @@
+﻿using System;
+namespace Calculator
+{
+   class Program
+    {
+        static void Main(string[] args)
+        {
+            while (true)
+            {
+                Console.WriteLine("Choose calculator type:");
+                Console.WriteLine("1. Normal Calculator");
+                Console.WriteLine("2. Scientific Calculator");
+                Console.WriteLine("3. Exit");
+
+                int choice;
+                while (!int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice > 3)
+                {
+                    Console.WriteLine("Invalid input. Please enter a number between 1 and 3.");
+                }
+
+                if (choice == 3)
+                {
+                    Console.WriteLine("Exiting...");
+                    break;
+                }
+
+                double num1, num2, result;
+                switch (choice)
+                {
+                    case 1:
+                        Console.WriteLine("Enter first number:");
+                        num1 = GetNumberInput();
+
+                        Console.WriteLine("Enter second number:");
+                        num2 = GetNumberInput();
+
+                        Console.WriteLine("Choose operation:");
+                        Console.WriteLine("1. Addition");
+                        Console.WriteLine("2. Subtraction");
+                        Console.WriteLine("3. Multiplication");
+                        Console.WriteLine("4. Division");
+
+                        int opChoice;
+                        while (!int.TryParse(Console.ReadLine(), out opChoice) || opChoice < 1 || opChoice > 4)
+                        {
+                            Console.WriteLine("Invalid input. Please enter a number between 1 and 4.");
+                        }
+
+                        result = 0;
+                        switch (opChoice)
+                        {
+                            case 1:
+                                result = num1 + num2;
+                                break;
+                            case 2:
+                                result = num1 - num2;
+                                break;
+                            case 3:
+                                result = num1 * num2;
+                                break;
+                            case 4:
+                                if (num2 == 0)
+                                {
+                                    Console.WriteLine("Error: Division by zero.");
+                                    continue;
+                                }
+                                result = num1 / num2;
+                                break;
+                        }
+
+                        Console.WriteLine($"Result: {result}");
+                        break;
+
+                    case 2:
+                        Console.WriteLine("Enter number:");
+                        num1 = GetNumberInput();
+
+                        Console.WriteLine("Choose operation:");
+                        Console.WriteLine("1. Exponentiation");
+                        Console.WriteLine("2. Square root");
+                        Console.WriteLine("3. Logarithm (base 10)");
+                        Console.WriteLine("4. Sine");
+                        Console.WriteLine("5. Cosine");
+                        Console.WriteLine("6. Tangent");
+
+                        while (!int.TryParse(Console.ReadLine(), out opChoice) || opChoice < 1 || opChoice > 6)
+                        {
+                            Console.WriteLine("Invalid input. Please enter a number between 1 and 6.");
+                        }
+
+                        result = 0;
+                        switch (opChoice)
+                        {
+                            case 1:
+                                Console.WriteLine("Enter exponent:");
+                                num2 = GetNumberInput();
+                                result = Math.Pow(num1, num2);
+                                break;
+                            case 2:
+                                result = Math.Sqrt(num1);
+                                break;
+                            case 3:
+                                if (num1 <= 0)
+                                {
+                                    Console.WriteLine("Error: Logarithm undefined for non-positive numbers.");
+                                    continue;
+                                }
+                                result = Math.Log10(num1);
+                                break;
+                            case 4:
+                                result = Math.Sin(num1);
+                                break;
+                            case 5:
+                                result = Math.Cos(num1);
+                                break;
+                            case 6:
+                                result = Math.Tan(num1);
+                                break;
+                        }
+
+                        Console.WriteLine($"Result: {result}");
+                        break;
+                }
+
+                Console.WriteLine("Do you want to perform another calculation? (Y/N)");
+                string again = Console.ReadLine();
+                if (again.ToUpper() != "Y")
+                {
+                    Console.WriteLine("Exiting...");
+                    break;
+                }
+            }
+        }
+
+        static double GetNumberInput()
+        {
+            double num;
+            while (!double.TryParse(Console.ReadLine(), out num))
+            {
+                Console.WriteLine("Invalid input. Please enter a valid number.");
+            }
+            return num;
+        }
+    }
+}
